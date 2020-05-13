@@ -1,3 +1,4 @@
+import 'package:numeric/numeric.dart';
 import 'package:ronpa/src/content/base.dart';
 
 class Reaction {
@@ -53,6 +54,18 @@ class FileElement {
     this.uploadedAt,
   });
 
+  factory FileElement.fromMap(Map<String, dynamic> map) {
+    return FileElement(
+      map['id'].toString(),
+      map['path'].toString(),
+      map['originalName'].toString(),
+      map['mimeType'].toString(),
+      tryParseNullInt(map['size']),
+      lastModifyAt: DateTime.tryParse(map['lastModifyAt'].toString()),
+      uploadedAt: DateTime.tryParse(map['uploadedAt'].toString()),
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': this.id,
@@ -74,6 +87,14 @@ class Thesis {
     this.insiders, {
     this.extras,
   });
+
+  factory Thesis.fromMap(Map<String, dynamic> map) {
+    final List<dynamic> insiders = map['insiders'];
+    return Thesis(
+      insiders.map((dynamic insider) => insider.toString()).toList(),
+      extras: map['extras'],
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return {

@@ -16,7 +16,32 @@ class Story {
     return this.thesis != null && this.thesisBullet != null;
   }
 
-  void addRecord(Map<String, dynamic> record) {}
+  void addRecord(Map<String, dynamic> record) {
+    if (record['story'] != this.identifier) {
+      throw ('Wrong Collection');
+    }
+
+    final Bullet bullet = Bullet.fromRecord(record);
+    if (record['thesis'] != null) {
+      this.setThesis(
+        bullet,
+        Thesis.fromMap(record['thesis']),
+      );
+      return;
+    }
+    this.addBullet(bullet);
+  }
+
+  void addBullet(Bullet bullet) {
+    if (bullet.story != this.identifier) {
+      throw ('Wrong Collection');
+    }
+
+    if (!this.bulletMap.containsKey(bullet.id)) {
+      this.bulletList.add(bullet);
+      this.bulletMap[bullet.id] = bullet;
+    }
+  }
 
   void updateExtras(Map<String, dynamic> extras) {
     final Thesis thesis = this.getThesis();
@@ -31,6 +56,15 @@ class Story {
       return this.thesis;
     }
     throw ("Thesis does not exist");
+  }
+
+  void setThesis(Bullet bullet, Thesis thesis) {
+    if (this.thesisBullet != null) {
+      throw ('Thesis already exist');
+    }
+
+    this.thesisBullet = bullet;
+    this.thesis = thesis;
   }
 
   List<Bullet> filterBullets(

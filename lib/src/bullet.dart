@@ -3,6 +3,7 @@ import 'package:ronpa/src/content/attachment.dart';
 import 'package:ronpa/src/content/base.dart';
 import 'package:ronpa/src/content/file.dart';
 import 'package:ronpa/src/content/html.dart';
+import 'package:ronpa/src/content/map.dart';
 import 'package:ronpa/src/content/text.dart';
 import 'package:ronpa/src/declare.dart';
 
@@ -123,6 +124,28 @@ class Bullet {
       content: HTMLContent(content),
       reactions: reactions,
       extras: extras,
+    );
+  }
+
+  factory Bullet.fromRecord(Map<String, dynamic> record) {
+    final String id = record['id'].toString();
+    final DateTime at = DateTime.tryParse(record['at'].toString());
+    final String by = record['by'].toString();
+    final String story = record['story'].toString();
+    final String type = record['type'] == null ? 'TEXT' : record['type'];
+
+    return Bullet(
+      id,
+      at,
+      by,
+      story,
+      reply: record['reply'].toString(),
+      isRobot: record['isRobot'],
+      isGenerated: record['isGenerated'],
+      extras: record['extras'],
+      content: createContentFromValue(type, record['content']),
+      reactions: [],
+      editHistories: [],
     );
   }
 

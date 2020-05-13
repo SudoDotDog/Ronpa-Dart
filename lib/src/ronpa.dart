@@ -1,3 +1,4 @@
+import 'package:ronpa/ronpa.dart';
 import 'package:ronpa/src/declare.dart';
 import 'package:ronpa/src/story.dart';
 
@@ -106,5 +107,17 @@ class Ronpa {
     }
 
     return records;
+  }
+
+  void apply(ChangeDraft change) {
+    switch (change.action) {
+      case "ADD_THESIS":
+        {
+          final ThesisChangeDraft thesisChange = change;
+          final Story story = Story(thesisChange.story);
+
+          // TODO
+        }
+    }
   }
 }

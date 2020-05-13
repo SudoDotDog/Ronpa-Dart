@@ -88,6 +88,13 @@ class Thesis {
     this.extras,
   });
 
+  factory Thesis.create(List<String> insiders) {
+    if (insiders == null) {
+      return Thesis([]);
+    }
+    return Thesis(insiders);
+  }
+
   factory Thesis.fromMap(Map<String, dynamic> map) {
     final List<dynamic> insiders = map['insiders'];
     return Thesis(
@@ -97,6 +104,12 @@ class Thesis {
   }
 
   Map<String, dynamic> toMap() {
+    if (this.extras == null) {
+      return {
+        'insiders': this.insiders,
+      };
+    }
+
     return {
       'insiders': this.insiders,
       'extras': this.extras,

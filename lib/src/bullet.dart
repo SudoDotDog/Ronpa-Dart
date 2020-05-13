@@ -18,7 +18,8 @@ class Bullet {
   final List<Reaction> _reactions;
   final List<dynamic> _editHistories;
 
-  final Content content;
+  final Content _content;
+  final String _contentType;
 
   Bullet(
     this.id,
@@ -29,17 +30,20 @@ class Bullet {
     this.isRobot,
     this.isGenerated,
     this.extras,
-    this.content,
+    Content content,
     List<Reaction> reactions,
     List<dynamic> editHistories,
   })  : _reactions = reactions,
-        _editHistories = editHistories;
+        _editHistories = editHistories,
+        _content = content,
+        _contentType = content.type;
 
   factory Bullet.createText(
     String from,
     String content,
     String story,
     DateTime at, {
+    String reply,
     List<Reaction> reactions,
     Map<String, dynamic> extras,
   }) {
@@ -49,7 +53,30 @@ class Bullet {
       at,
       from,
       story,
-      content: TextContent(),
+      reply: reply,
+      content: TextContent(content),
+      reactions: reactions,
+      extras: extras,
+    );
+  }
+
+  factory Bullet.createFile(
+    String from,
+    String content,
+    String story,
+    DateTime at, {
+    String reply,
+    List<Reaction> reactions,
+    Map<String, dynamic> extras,
+  }) {
+    final String id = randomUnique();
+    return Bullet(
+      id,
+      at,
+      from,
+      story,
+      reply: reply,
+      content: TextContent(content),
       reactions: reactions,
       extras: extras,
     );

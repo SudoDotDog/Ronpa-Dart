@@ -1,6 +1,8 @@
 import 'package:numeric/numeric.dart';
+import 'package:ronpa/src/content/attachment.dart';
 import 'package:ronpa/src/content/base.dart';
 import 'package:ronpa/src/content/file.dart';
+import 'package:ronpa/src/content/html.dart';
 import 'package:ronpa/src/content/text.dart';
 import 'package:ronpa/src/declare.dart';
 
@@ -83,7 +85,8 @@ class Bullet {
 
   factory Bullet.createAttachment(
     String from,
-    List<FileElement> content,
+    String text,
+    List<FileElement> files,
     String story,
     DateTime at, {
     String reply,
@@ -96,7 +99,28 @@ class Bullet {
       from,
       story,
       reply: reply,
-      content: FileContent(content),
+      content: AttachmentContent(text, files),
+      reactions: reactions,
+      extras: extras,
+    );
+  }
+
+  factory Bullet.createHtml(
+    String from,
+    String content,
+    String story,
+    DateTime at, {
+    String reply,
+    List<Reaction> reactions,
+    Map<String, dynamic> extras,
+  }) {
+    return Bullet(
+      randomUnique(),
+      at,
+      from,
+      story,
+      reply: reply,
+      content: HTMLContent(content),
       reactions: reactions,
       extras: extras,
     );

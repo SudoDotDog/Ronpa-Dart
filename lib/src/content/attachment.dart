@@ -6,4 +6,12 @@ class AttachmentContent extends Content {
   final List<FileElement> files;
 
   AttachmentContent(this.text, this.files) : super("ATTACHMENT");
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'text': this.text,
+      'files': this.files.map((FileElement each) => each.toMap()).toList(),
+    };
+  }
 }

@@ -185,4 +185,14 @@ class Bullet {
     }
     throw ("Invalid content type");
   }
+
+  Map<String, dynamic> record() {
+    final Map<String, dynamic> result = {
+      'id': this.id,
+      'at': this.at,
+      'by': this.by,
+      'story': this.story,
+      'content': this._content.toMap(),
+    };
+  }
 }

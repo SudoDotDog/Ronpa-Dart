@@ -5,4 +5,9 @@ class FileContent extends Content {
   final List<FileElement> files;
 
   FileContent(this.files) : super("FILE");
+
+  @override
+  List<Map<String, dynamic>> toMap() {
+    return this.files.map((FileElement each) => each.toMap()).toList();
+  }
 }

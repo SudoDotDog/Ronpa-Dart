@@ -33,6 +33,18 @@ class FileElement {
     this.lastModifyAt,
     this.uploadedAt,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': this.id,
+      'path': this.path,
+      'originalName': this.originalName,
+      'mimeType': this.mimeType,
+      'size': this.size,
+      'lastModifyAt': this.lastModifyAt,
+      'uploadedAt': this.uploadedAt,
+    };
+  }
 }
 
 class Thesis {

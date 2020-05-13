@@ -1,5 +1,6 @@
 import 'package:numeric/numeric.dart';
 import 'package:ronpa/src/content/base.dart';
+import 'package:ronpa/src/content/file.dart';
 import 'package:ronpa/src/content/text.dart';
 import 'package:ronpa/src/declare.dart';
 
@@ -47,9 +48,8 @@ class Bullet {
     List<Reaction> reactions,
     Map<String, dynamic> extras,
   }) {
-    final String id = randomUnique();
     return Bullet(
-      id,
+      randomUnique(),
       at,
       from,
       story,
@@ -62,21 +62,41 @@ class Bullet {
 
   factory Bullet.createFile(
     String from,
-    String content,
+    List<FileElement> content,
     String story,
     DateTime at, {
     String reply,
     List<Reaction> reactions,
     Map<String, dynamic> extras,
   }) {
-    final String id = randomUnique();
     return Bullet(
-      id,
+      randomUnique(),
       at,
       from,
       story,
       reply: reply,
-      content: TextContent(content),
+      content: FileContent(content),
+      reactions: reactions,
+      extras: extras,
+    );
+  }
+
+  factory Bullet.createAttachment(
+    String from,
+    List<FileElement> content,
+    String story,
+    DateTime at, {
+    String reply,
+    List<Reaction> reactions,
+    Map<String, dynamic> extras,
+  }) {
+    return Bullet(
+      randomUnique(),
+      at,
+      from,
+      story,
+      reply: reply,
+      content: FileContent(content),
       reactions: reactions,
       extras: extras,
     );

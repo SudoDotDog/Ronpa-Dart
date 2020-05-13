@@ -1,4 +1,6 @@
+import 'package:numeric/numeric.dart';
 import 'package:ronpa/src/content/base.dart';
+import 'package:ronpa/src/content/text.dart';
 import 'package:ronpa/src/declare.dart';
 
 class Bullet {
@@ -33,14 +35,25 @@ class Bullet {
   })  : _reactions = reactions,
         _editHistories = editHistories;
 
-  factory Bullet.create(
+  factory Bullet.createText(
     String from,
     String content,
     String story,
     DateTime at, {
     List<Reaction> reactions,
     Map<String, dynamic> extras,
-  }) {}
+  }) {
+    final String id = randomUnique();
+    return Bullet(
+      id,
+      at,
+      from,
+      story,
+      content: TextContent(),
+      reactions: reactions,
+      extras: extras,
+    );
+  }
 
   List<dynamic> get reactions {
     return this._reactions == null ? [] : this._reactions;

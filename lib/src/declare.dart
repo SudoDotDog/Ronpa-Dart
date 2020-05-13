@@ -74,4 +74,11 @@ class Thesis {
     this.insiders, {
     this.extras,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'insiders': this.insiders,
+      'extras': this.extras,
+    };
+  }
 }

@@ -18,5 +18,25 @@ class Story {
 
   void addRecord(Map<String, dynamic> record) {}
 
-  List<Map<String, dynamic>> flat() {}
+  List<Map<String, dynamic>> flat() {
+    final List<Map<String, dynamic>> bulletRecordList =
+        this.bulletList.map((Bullet each) => each.record()).toList();
+    final Map<String, dynamic> thesisRecord = this.getThesisRecord();
+
+    if (thesisRecord != null) {
+      final List<Map<String, dynamic>> result = [thesisRecord];
+      result.addAll(bulletRecordList);
+
+      return result;
+    }
+
+    return bulletRecordList;
+  }
+
+  Map<String, dynamic> getThesisRecord() {
+    if (this.thesisBullet != null && this.thesis != null) {
+      return this.thesis.toMap();
+    }
+    return null;
+  }
 }

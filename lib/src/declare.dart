@@ -88,9 +88,13 @@ class Thesis {
     this.extras,
   });
 
+  factory Thesis.createEmpty() {
+    return Thesis([]);
+  }
+
   factory Thesis.create(List<String> insiders) {
     if (insiders == null) {
-      return Thesis([]);
+      return Thesis.createEmpty();
     }
     return Thesis(insiders);
   }

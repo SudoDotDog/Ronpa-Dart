@@ -55,6 +55,13 @@ class Ronpa {
     return story;
   }
 
+  void addStory(Story story) {
+    if (!this.storyMap.containsKey(story.identifier)) {
+      this.storyList.add(story);
+      this.storyMap[story.identifier] = story;
+    }
+  }
+
   void addRecord(Map<String, dynamic> record) {
     final String storyID = record['story'].toString();
 
@@ -116,8 +123,19 @@ class Ronpa {
           final ThesisChangeDraft thesisChange = change;
           final Story story = Story(thesisChange.story);
 
-          // TODO
+          final Bullet bullet = Bullet(
+            thesisChange.id,
+            thesisChange.at,
+            thesisChange.by,
+            thesisChange.story,
+          );
+          story.setThesis(bullet, Thesis.createEmpty());
+          this.addStory(story);
         }
+      // case "ADD_REPLY" {
+      //   final ReplyChangeDraft replyChange = change;
+
+      // }
     }
   }
 }

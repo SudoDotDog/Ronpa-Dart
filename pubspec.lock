@@ -186,10 +186,10 @@ packages:
   numeric:
     dependency: "direct main"
     description:
-      path: "..\\Dart-Numeric"
-      relative: true
-    source: path
-    version: "1.0.0"
+      name: numeric
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   package_config:
     dependency: transitive
     description:

@@ -7,8 +7,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  numeric:
-    path: ../Dart-Numeric
+  numeric: ^1.0.1
 
 dev_dependencies:
   test: ^1.12.0

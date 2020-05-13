@@ -18,11 +18,11 @@ class Bullet {
 
   final Map<String, dynamic> extras;
 
-  final List<Reaction> _reactions;
-  final List<dynamic> _editHistories;
+  List<Reaction> _reactions;
+  List<dynamic> _editHistories;
 
-  final Content _content;
   final String _contentType;
+  Content _content;
 
   Bullet(
     this.id,
@@ -126,11 +126,63 @@ class Bullet {
     );
   }
 
+  String get contentType {
+    return this._contentType;
+  }
+
   List<dynamic> get reactions {
     return this._reactions == null ? [] : this._reactions;
   }
 
   List<dynamic> get editHistories {
     return this._editHistories == null ? [] : this._editHistories;
+  }
+
+  void editContent(
+    Content content,
+    String by, {
+    DateTime at,
+  }) {
+    this.verifyContent(content);
+    this.pushEditHistory(content, by);
+    this._content = content;
+    return;
+  }
+
+  void pushEditHistory(
+    Content content,
+    String by, {
+    DateTime at,
+  }) {
+    this.verifyContent(content);
+    final DateTime actualTime = at == null ? DateTime.now() : at;
+
+    if (this._editHistories == null) {
+      this._editHistories = [
+        EditHistory(
+          actualTime,
+          by,
+          this._content,
+          content,
+        ),
+      ];
+      return;
+    }
+
+    this._editHistories.add(
+          EditHistory(
+            actualTime,
+            by,
+            this._content,
+            content,
+          ),
+        );
+  }
+
+  void verifyContent(Content content) {
+    if (content.type == this._content.type) {
+      return;
+    }
+    throw ("Invalid content type");
   }
 }

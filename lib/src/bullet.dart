@@ -19,9 +19,9 @@ class Bullet {
   final Map<String, dynamic> extras;
 
   List<Reaction> _reactions;
-  List<dynamic> _editHistories;
+  List<EditHistory> _editHistories;
 
-  final String _contentType;
+  final String _type;
   Content _content;
 
   Bullet(
@@ -35,11 +35,11 @@ class Bullet {
     this.extras,
     Content content,
     List<Reaction> reactions,
-    List<dynamic> editHistories,
+    List<EditHistory> editHistories,
   })  : _reactions = reactions,
         _editHistories = editHistories,
         _content = content,
-        _contentType = content.type;
+        _type = content.type;
 
   factory Bullet.createText(
     String from,
@@ -127,14 +127,14 @@ class Bullet {
   }
 
   String get contentType {
-    return this._contentType;
+    return this._type;
   }
 
-  List<dynamic> get reactions {
+  List<Reaction> get reactions {
     return this._reactions == null ? [] : this._reactions;
   }
 
-  List<dynamic> get editHistories {
+  List<EditHistory> get editHistories {
     return this._editHistories == null ? [] : this._editHistories;
   }
 
@@ -194,5 +194,28 @@ class Bullet {
       'story': this.story,
       'content': this._content.toMap(),
     };
+
+    if (this._reactions != null) {
+      result['reactions'] =
+          this._reactions.map((Reaction each) => each.toMap()).toList();
+    }
+    if (this._editHistories != null) {
+      result['editHistories'] =
+          this._editHistories.map((EditHistory each) => each.toMap()).toList();
+    }
+    if (this._type != "TEXT") {
+      result['type'] = this._type;
+    }
+    if (this.extras != null) {
+      result['extras'] = this.extras;
+    }
+    if (this.isRobot) {
+      result['isRobot'] = this.isRobot;
+    }
+    if (this.isGenerated) {
+      result['isGenerated'] = this.isGenerated;
+    }
+
+    return result;
   }
 }

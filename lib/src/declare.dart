@@ -1,18 +1,37 @@
+import 'package:ronpa/src/content/base.dart';
+
 class Reaction {
   final DateTime at;
   final String by;
   final String type;
 
   Reaction(this.at, this.by, this.type);
+
+  Map<String, dynamic> toMap() {
+    return {
+      'at': this.at,
+      'by': this.by,
+      'type': this.type,
+    };
+  }
 }
 
 class EditHistory {
   final DateTime at;
   final String by;
-  final dynamic before;
-  final dynamic after;
+  final Content before;
+  final Content after;
 
   EditHistory(this.at, this.by, this.before, this.after);
+
+  Map<String, dynamic> toMap() {
+    return {
+      'at': this.at,
+      'by': this.by,
+      'before': this.before,
+      'after': this.after,
+    };
+  }
 }
 
 class FileElement {

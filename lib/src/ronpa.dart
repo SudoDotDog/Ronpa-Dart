@@ -1,3 +1,4 @@
+import 'package:ronpa/src/declare.dart';
 import 'package:ronpa/src/story.dart';
 
 class Ronpa {
@@ -5,6 +6,72 @@ class Ronpa {
   final List<Story> storyList = [];
 
   Ronpa();
+
+  factory Ronpa.rebuild(List<Map<String, dynamic>> records) {
+    final Ronpa ronpa = Ronpa();
+    ronpa.addRecordList(records);
+    return ronpa;
+  }
+
+  Story createAndGetTextStory(
+    String by,
+    String text, {
+    DateTime at,
+  }) {
+    final Story story = Story.create();
+    story.createTextThesisBullet(by, text);
+    return story;
+  }
+
+  Story createAndGetHTMLStory(
+    String by,
+    String text, {
+    DateTime at,
+  }) {
+    final Story story = Story.create();
+    story.createHTMLThesisBullet(by, text);
+    return story;
+  }
+
+  Story createAndGetFileStory(
+    String by,
+    List<FileElement> files, {
+    DateTime at,
+  }) {
+    final Story story = Story.create();
+    story.createFileThesisBullet(by, files);
+    return story;
+  }
+
+  Story createAndGetAttachmentStory(
+    String by,
+    String text,
+    List<FileElement> files, {
+    DateTime at,
+  }) {
+    final Story story = Story.create();
+    story.createAttachmentThesisBullet(by, text, files);
+    return story;
+  }
+
+  void addRecord(Map<String, dynamic> record) {
+    final String storyID = record['story'].toString();
+
+    if (this.storyMap.containsKey(storyID)) {
+      final Story story = this.storyMap[storyID];
+      story.addRecord(record);
+    } else {
+      final Story story = Story.withRecord(record);
+      this.storyList.add(story);
+      this.storyMap[storyID] = story;
+    }
+  }
+
+  void addRecordList(List<Map<String, dynamic>> records) {
+    for (final Map<String, dynamic> record in records) {
+      this.addRecord(record);
+    }
+  }
 
   List<Story> filterStories(
     bool Function(Story, int, List<Story>) filter,

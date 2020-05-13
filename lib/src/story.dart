@@ -1,3 +1,4 @@
+import 'package:numeric/numeric.dart';
 import 'package:ronpa/src/bullet.dart';
 import 'package:ronpa/src/declare.dart';
 
@@ -12,8 +13,99 @@ class Story {
 
   Story(this.identifier);
 
+  factory Story.create() {
+    return Story(
+      randomUnique(),
+    );
+  }
+
+  factory Story.withRecord(Map<String, dynamic> record) {
+    final Story story = Story(
+      record['story'].toString(),
+    );
+    story.addRecord(record);
+    return story;
+  }
+
+  factory Story.fromRecords(List<Map<String, dynamic>> records) {
+    if (records.length <= 0) {
+      return Story.create();
+    }
+    final Story story = Story.withRecord(records[0]);
+    for (final Map<String, dynamic> record in records.sublist(1)) {
+      story.addRecord(record);
+    }
+    return story;
+  }
+
   bool hasThesis() {
     return this.thesis != null && this.thesisBullet != null;
+  }
+
+  void createTextThesisBullet(
+    String by,
+    String content, {
+    DateTime at,
+  }) {
+    final DateTime actualAt = at == null ? DateTime.now() : at;
+    final Bullet bullet = Bullet.createText(
+      by,
+      content,
+      this.identifier,
+      actualAt,
+    );
+
+    this.setThesis(bullet, Thesis([]));
+  }
+
+  void createHTMLThesisBullet(
+    String by,
+    String content, {
+    DateTime at,
+  }) {
+    final DateTime actualAt = at == null ? DateTime.now() : at;
+    final Bullet bullet = Bullet.createHtml(
+      by,
+      content,
+      this.identifier,
+      actualAt,
+    );
+
+    this.setThesis(bullet, Thesis([]));
+  }
+
+  void createFileThesisBullet(
+    String by,
+    List<FileElement> files, {
+    DateTime at,
+  }) {
+    final DateTime actualAt = at == null ? DateTime.now() : at;
+    final Bullet bullet = Bullet.createFile(
+      by,
+      files,
+      this.identifier,
+      actualAt,
+    );
+
+    this.setThesis(bullet, Thesis([]));
+  }
+
+  void createAttachmentThesisBullet(
+    String by,
+    String content,
+    List<FileElement> files, {
+    DateTime at,
+  }) {
+    final DateTime actualAt = at == null ? DateTime.now() : at;
+    final Bullet bullet = Bullet.createAttachment(
+      by,
+      content,
+      files,
+      this.identifier,
+      actualAt,
+    );
+
+    this.setThesis(bullet, Thesis([]));
   }
 
   void addRecord(Map<String, dynamic> record) {

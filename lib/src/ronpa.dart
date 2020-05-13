@@ -62,6 +62,49 @@ class Ronpa {
     }
   }
 
+  bool hasStory(String id) {
+    return this.storyMap.containsKey(id);
+  }
+
+  Story getStory(String id) {
+    if (this.hasStory(id)) {
+      return this.storyMap[id];
+    }
+    return null;
+  }
+
+  Story ensureStory(String id) {
+    if (this.hasStory(id)) {
+      return this.storyMap[id];
+    }
+    throw ("Story not found");
+  }
+
+  bool hasBullet(String id) {
+    for (final Story story in this.storyList) {
+      if (story.hasBullet(id)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  Bullet getBullet(String id) {
+    for (final Story story in this.storyList) {
+      if (story.hasBullet(id)) {
+        return story.getBullet(id);
+      }
+    }
+    return null;
+  }
+
+  Bullet ensureBullet(String id) {
+    if (this.hasBullet(id)) {
+      return this.getBullet(id);
+    }
+    throw ("Bullet not found");
+  }
+
   void addRecord(Map<String, dynamic> record) {
     final String storyID = record['story'].toString();
 
@@ -122,20 +165,56 @@ class Ronpa {
         {
           final ThesisChangeDraft thesisChange = change;
           final Story story = Story(thesisChange.story);
-
           final Bullet bullet = Bullet(
             thesisChange.id,
             thesisChange.at,
             thesisChange.by,
             thesisChange.story,
           );
+
           story.setThesis(bullet, Thesis.createEmpty());
           this.addStory(story);
+          return;
         }
-      // case "ADD_REPLY" {
-      //   final ReplyChangeDraft replyChange = change;
+      case "ADD_REPLY":
+        {
+          final ReplyChangeDraft replyChange = change;
+          final Story story = this.ensureStory(replyChange.story);
+          final Bullet bullet = Bullet(
+            replyChange.id,
+            replyChange.at,
+            replyChange.by,
+            replyChange.story,
+            reply: replyChange.reply,
+          );
 
-      // }
+          story.addBullet(bullet);
+          return;
+        }
+      case "ADD_REACTION":
+        {
+          final AddReactionChangeDraft addReactionChange = change;
+          final Bullet bullet = this.ensureBullet(addReactionChange.bulletId);
+
+          bullet.addReaction(
+            addReactionChange.by,
+            addReactionChange.reaction,
+            at: addReactionChange.at,
+          );
+          return;
+        }
+      case "REMOVE_REACTION":
+        {
+          final RemoveReactionChangeDraft removeReactionChange = change;
+          final Bullet bullet =
+              this.ensureBullet(removeReactionChange.bulletId);
+
+          bullet.removeReaction(
+            removeReactionChange.by,
+            removeReactionChange.reaction,
+          );
+          return;
+        }
     }
   }
 }

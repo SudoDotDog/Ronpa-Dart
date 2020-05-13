@@ -8,6 +8,18 @@ class Reaction {
 
   Reaction(this.at, this.by, this.type);
 
+  factory Reaction.create(
+    String by,
+    String type, {
+    DateTime at,
+  }) {
+    if (at == null) {
+      return Reaction(DateTime.now(), by, type);
+    }
+
+    return Reaction(at, by, type);
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'at': this.at,

@@ -42,6 +42,36 @@ class Story {
     return this.thesis != null && this.thesisBullet != null;
   }
 
+  bool hasBullet(String id) {
+    if (this.thesisBullet != null && this.thesisBullet.id == id) {
+      return true;
+    }
+
+    return this.bulletMap.containsKey(id);
+  }
+
+  Bullet getBullet(String id) {
+    if (!this.hasBullet(id)) {
+      return null;
+    }
+
+    if (this.thesisBullet != null && this.thesisBullet.id == id) {
+      return this.thesisBullet;
+    }
+    return this.bulletMap[id];
+  }
+
+  Bullet ensureBullet(String id) {
+    if (!this.hasBullet(id)) {
+      throw ("Bullet not found");
+    }
+
+    if (this.thesisBullet != null && this.thesisBullet.id == id) {
+      return this.thesisBullet;
+    }
+    return this.bulletMap[id];
+  }
+
   void createTextThesisBullet(
     String by,
     String content, {

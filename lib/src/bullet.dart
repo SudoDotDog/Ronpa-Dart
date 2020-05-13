@@ -202,6 +202,58 @@ class Bullet {
         );
   }
 
+  bool hasReaction(String by, String type) {
+    if (this._reactions == null) {
+      return false;
+    }
+
+    for (final Reaction reaction in this._reactions) {
+      if (reaction.by == by && reaction.type == type) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  void addReaction(
+    String by,
+    String type, {
+    DateTime at,
+  }) {
+    if (this.hasReaction(by, type)) {
+      return;
+    }
+
+    if (this._reactions != null) {
+      this._reactions.add(Reaction.create(by, type));
+      return;
+    }
+    this._reactions = [Reaction.create(by, type)];
+    return;
+  }
+
+  void removeReaction(String by, String type) {
+    if (!this.hasReaction(by, type)) {
+      return;
+    }
+
+    if (this._reactions == null) {
+      return;
+    }
+
+    final List<Reaction> newReactions = [];
+
+    for (final Reaction reaction in this._reactions) {
+      if (reaction.by == by && reaction.type == type) {
+        break;
+      }
+      newReactions.add(reaction);
+    }
+
+    this._reactions = newReactions;
+    return;
+  }
+
   void verifyContent(Content content) {
     if (content.type == this._content.type) {
       return;

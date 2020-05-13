@@ -34,3 +34,13 @@ class FileElement {
     this.uploadedAt,
   });
 }
+
+class Thesis {
+  final List<String> insiders;
+  final Map<String, dynamic> extras;
+
+  Thesis(
+    this.insiders, {
+    this.extras,
+  });
+}

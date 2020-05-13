@@ -1,7 +1,7 @@
 name: ronpa
 description: Ronpa Dart implementation
 version: 0.0.1
-homepage: https://sudo.dog
+homepage: https://github.com/SudoDotDog/Ronpa-Dart
 
 environment:
   sdk: ">=2.1.0 <3.0.0"

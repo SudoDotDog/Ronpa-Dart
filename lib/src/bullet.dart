@@ -29,12 +29,12 @@ class Bullet {
     this.id,
     this.at,
     this.by,
-    this.story, {
+    this.story,
+    Content content, {
     this.reply,
     this.isRobot,
     this.isGenerated,
     this.extras,
-    Content content,
     List<Reaction> reactions,
     List<EditHistory> editHistories,
   })  : _reactions = reactions,
@@ -56,8 +56,8 @@ class Bullet {
       at,
       from,
       story,
+      TextContent(content),
       reply: reply,
-      content: TextContent(content),
       reactions: reactions,
       extras: extras,
     );
@@ -77,8 +77,8 @@ class Bullet {
       at,
       from,
       story,
+      FileContent(content),
       reply: reply,
-      content: FileContent(content),
       reactions: reactions,
       extras: extras,
     );
@@ -99,8 +99,8 @@ class Bullet {
       at,
       from,
       story,
+      AttachmentContent(text, files),
       reply: reply,
-      content: AttachmentContent(text, files),
       reactions: reactions,
       extras: extras,
     );
@@ -120,8 +120,8 @@ class Bullet {
       at,
       from,
       story,
+      HTMLContent(content),
       reply: reply,
-      content: HTMLContent(content),
       reactions: reactions,
       extras: extras,
     );
@@ -139,11 +139,11 @@ class Bullet {
       at,
       by,
       story,
+      createContentFromValue(type, record['content']),
       reply: record['reply'].toString(),
       isRobot: record['isRobot'],
       isGenerated: record['isGenerated'],
       extras: record['extras'],
-      content: createContentFromValue(type, record['content']),
       reactions: [],
       editHistories: [],
     );

@@ -16,6 +16,15 @@ void main() {
       final Ronpa ronpa = Ronpa.rebuild(originalRecords);
 
       expect(ronpa.getBulletsCount(), equals(2));
+
+      final ChangeDraft draft = ThesisChangeDraft(
+        'username',
+        TextContent('content'),
+      );
+
+      ronpa.apply(draft);
+
+      expect(ronpa.getBulletsCount(), equals(3));
     });
   });
 }

@@ -178,6 +178,7 @@ class Ronpa {
             thesisChange.at,
             thesisChange.by,
             thesisChange.story,
+            thesisChange.content,
           );
 
           story.setThesis(bullet, Thesis.createEmpty());
@@ -193,6 +194,7 @@ class Ronpa {
             replyChange.at,
             replyChange.by,
             replyChange.story,
+            replyChange.content,
             reply: replyChange.reply,
           );
 

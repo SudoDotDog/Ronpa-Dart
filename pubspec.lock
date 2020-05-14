@@ -189,7 +189,7 @@ packages:
       name: numeric
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.2"
   package_config:
     dependency: transitive
     description:

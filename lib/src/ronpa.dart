@@ -8,9 +8,17 @@ class Ronpa {
 
   Ronpa();
 
-  factory Ronpa.rebuild(List<Map<String, dynamic>> records) {
+  factory Ronpa.rebuild(List<dynamic> records) {
     final Ronpa ronpa = Ronpa();
-    ronpa.addRecordList(records);
+    if (records.length == 0) {
+      return ronpa;
+    }
+
+    final List<Map<String, dynamic>> parsed =
+        records.map((dynamic each) => each as Map<String, dynamic>).toList();
+    print('hh');
+
+    ronpa.addRecordList(parsed);
     return ronpa;
   }
 

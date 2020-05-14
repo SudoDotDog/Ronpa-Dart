@@ -21,6 +21,10 @@ class Ronpa {
     return ronpa;
   }
 
+  int getStoryCount() {
+    return this.storyList.length;
+  }
+
   int getBulletsCount() {
     int count = 0;
     for (final Story story in this.storyList) {

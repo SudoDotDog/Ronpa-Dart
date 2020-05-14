@@ -22,6 +22,16 @@ class Ronpa {
     return count;
   }
 
+  int getThesisStoryCount() {
+    int count = 0;
+    for (final Story story in this.storyList) {
+      if (story.hasThesis()) {
+        count++;
+      }
+    }
+    return count;
+  }
+
   Story createAndGetTextStory(
     String by,
     String text, {

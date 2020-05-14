@@ -25,6 +25,7 @@ void main() {
       ronpa.apply(draft);
 
       expect(ronpa.getBulletsCount(), equals(3));
+      expect(ronpa.getThesisStoryCount(), equals(2));
     });
   });
 }

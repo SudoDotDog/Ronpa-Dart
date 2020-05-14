@@ -14,6 +14,14 @@ class Ronpa {
     return ronpa;
   }
 
+  int getBulletsCount() {
+    int count = 0;
+    for (final Story story in this.storyList) {
+      count += story.getBulletsCount();
+    }
+    return count;
+  }
+
   Story createAndGetTextStory(
     String by,
     String text, {

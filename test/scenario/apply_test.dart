@@ -15,7 +15,7 @@ void main() {
 
       final Ronpa ronpa = Ronpa.rebuild(originalRecords);
 
-      expect(ronpa, isA<Ronpa>());
+      expect(ronpa.getBulletsCount(), equals(2));
     });
   });
 }

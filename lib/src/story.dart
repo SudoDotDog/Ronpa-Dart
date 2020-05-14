@@ -38,6 +38,13 @@ class Story {
     return story;
   }
 
+  int getBulletsCount() {
+    if (this.thesisBullet != null) {
+      return this.bulletList.length + 1;
+    }
+    return this.bulletList.length;
+  }
+
   bool hasThesis() {
     return this.thesis != null && this.thesisBullet != null;
   }

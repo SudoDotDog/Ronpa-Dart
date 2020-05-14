@@ -153,6 +153,10 @@ class Bullet {
     return this._type;
   }
 
+  Content get content {
+    return this._content;
+  }
+
   List<Reaction> get reactions {
     return this._reactions == null ? [] : this._reactions;
   }

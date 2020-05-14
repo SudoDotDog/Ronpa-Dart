@@ -16,7 +16,6 @@ class Ronpa {
 
     final List<Map<String, dynamic>> parsed =
         records.map((dynamic each) => each as Map<String, dynamic>).toList();
-    print('hh');
 
     ronpa.addRecordList(parsed);
     return ronpa;
